@@ -9,7 +9,9 @@ import createSagaMiddleware from "redux-saga";
 import reducers from "./reducers";
 import sagas from "./sagas";
 
-import Main from "./containers/Main";
+import Wrapper from "./components/Wrapper";
+import Departments from "./containers/Departments";
+import Employees from "./containers/Employees";
 
 import style from "../style/style.scss";
 
@@ -28,11 +30,12 @@ sagaMiddleware.run(sagas);
 ReactDOM.render(
     <Provider store={store}>
         <BrowserRouter>
-            {/*<Wrapper>*/}
+            <Wrapper>
                 <Switch>
-                    <Route path="/" component={Main} />
+                    <Route path="/employees" component={Employees} />
+                    <Route path="/" exact component={Departments} />
                 </Switch>
-            {/*</Wrapper>*/}
+            </Wrapper>
         </BrowserRouter>
     </Provider>,
     document.getElementById("root")
