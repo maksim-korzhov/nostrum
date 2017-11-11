@@ -1,6 +1,14 @@
 import React, {Component} from "react";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
+
+import { fetchDepartments } from "../actions";
 
 class Departments extends Component {
+    componentWillMount() {
+        this.props.fetchDepartments();
+    }
+
     render() {
         return (
             <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
@@ -137,4 +145,8 @@ class Departments extends Component {
     }
 }
 
-export default Departments;
+function mapDispatchToProps(dispatch) {
+    return bindActionCreators({ fetchDepartments }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(Departments);
