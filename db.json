@@ -1,0 +1,50 @@
+{
+  "department": [
+    {
+      "id": 1,
+      "name": "Холистическое детективное агентство"
+    },
+    {
+      "id": 2,
+      "name": "Чёрное крыло"
+    }
+  ],
+  "employee": [
+    {
+      "id": 1,
+      "firstName": "Дирк",
+      "lastName": "Джентли",
+      "departmentId": 1
+    },
+    {
+      "id": 2,
+      "firstName": "Тодд",
+      "lastName": "Бротцман",
+      "departmentId": 1
+    },
+    {
+      "id": 3,
+      "firstName": "Барт",
+      "lastName": "Кёрлиш",
+      "departmentId": 1
+    },
+    {
+      "id": 4,
+      "firstName": "Фара",
+      "lastName": "Блэк",
+      "departmentId": 1
+    },
+    {
+      "id": 5,
+      "firstName": "Хьюго",
+      "lastName": "Фридкин",
+      "departmentId": 2
+    },
+    {
+      "id": 6,
+      "firstName": "Алан",
+      "lastName": "Прист",
+      "departmentId": 2
+    }
+  ]
+}
