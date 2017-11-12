@@ -5,7 +5,7 @@ import {
 } from "../actions/types";
 
 export const initialState = {
-    departments: []
+    departmentsList: []
 };
 
 export default function( state = initialState, action ) {
@@ -13,7 +13,7 @@ export default function( state = initialState, action ) {
         case FETCH_DEPARTMENTS_SUCCEEDED:
             return {
                 ...state,
-                departments: action.payload
+                departmentsList: action.payload
             };
     }
 
