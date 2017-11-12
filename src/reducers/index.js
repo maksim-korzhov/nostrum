@@ -1,7 +1,7 @@
 import {combineReducers} from "redux";
 
-import DataReducer from "./DataReducer";
+import departments from "./DepartmentReducer";
 
 export default combineReducers({
-    videoData: DataReducer
+    departments
 });

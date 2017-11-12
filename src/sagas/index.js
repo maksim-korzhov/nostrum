@@ -10,12 +10,11 @@ import {
 const ROOT_URL = "http://159.203.117.100:3000";
 
 //
-function* fetchDepartmentsAsync() {
+export function* fetchDepartmentsAsync() {
     try {
         const result = yield call( axios.get, `${ROOT_URL}/department`);
         yield put({ type: FETCH_DEPARTMENTS_SUCCEEDED, payload: result.data });
     } catch(error) {
-        console.error("Request failed. Could not fetch departments.");
         yield put({ type: FETCH_DEPARTMENTS_FAILED, payload: error });
     }
 }
