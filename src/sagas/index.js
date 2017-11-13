@@ -7,7 +7,10 @@ import {
     FETCH_DEPARTMENTS_FAILED,
     FETCH_EMPLOYEES,
     FETCH_EMPLOYEES_SUCCEEDED,
-    FETCH_EMPLOYEES_FAILED
+    FETCH_EMPLOYEES_FAILED,
+    ADD_DEPARTMENT,
+    ADD_DEPARTMENT_SUCCEEDED,
+    ADD_DEPARTMENT_FAILED
 } from "../actions/types";
 
 const ROOT_URL = "http://159.203.117.100:3000";
@@ -27,6 +30,24 @@ function* watchFetchDepartments() {
     yield takeEvery(FETCH_DEPARTMENTS, fetchDepartmentsAsync);
 }
 
+// get list of departments
+export function* fetchDepartmentsByIdAsync(ids) {
+    try {
+        const uri = `?id=${ids.join("&id=")}`;
+        const departments = yield call( axios.get, `${ROOT_URL}/department${uri}`);
+
+        const indexedDepartments = departments.data.reduce((arr, department) => {
+                arr[department.id] = department;
+                return arr;
+            }, {}
+        );
+
+        return indexedDepartments;
+    } catch(error) {
+        return {};
+    }
+}
+
 // get list of employees
 export function* fetchEmployeesAsync() {
     try {
@@ -41,19 +62,16 @@ export function* fetchEmployeesAsync() {
             }
         });
 
-        // get defartments list
-        const departments = yield call( axios.get, `${ROOT_URL}/department?id=${departmentsIds.join("&id=")}` );
+        // get list of departments
+        let indexedDepartments = {};
+        indexedDepartments = yield* fetchDepartmentsByIdAsync(departmentsIds);
 
-        const indexedDepartments = departments.data.reduce((arr, department) => {
-                arr[department.id] = department;
-                return arr;
-            }, {}
-        );
 
         // add department names to employees list
-        const result = {
+        const result = yield {
             data: employee.data.map( employee => {
-                employee.departmentName = indexedDepartments[employee.departmentId] ? indexedDepartments[employee.departmentId].name : "-";
+                employee.departmentName = indexedDepartments[employee.departmentId]
+                    ? indexedDepartments[employee.departmentId].name : "-";
                 return employee;
             })
         };
@@ -69,10 +87,28 @@ function* watchFetchEmployees() {
     yield takeEvery(FETCH_EMPLOYEES, fetchEmployeesAsync);
 }
 
+
+// add new department
+export function* addNewDepartmentAsync(action) {
+    try {
+        const result = yield call( axios.post, `${ROOT_URL}/department`, action.payload);
+        //yield put({ type: ADD_DEPARTMENT_SUCCEEDED, payload: result.data });
+        yield* fetchDepartmentsAsync();
+    } catch(error) {
+        yield put({ type: ADD_DEPARTMENT_FAILED, payload: error });
+    }
+}
+
+// departments watcher
+function* watchAddDepartment() {
+    yield takeEvery(ADD_DEPARTMENT, addNewDepartmentAsync);
+}
+
 // single entry point to start all the sagas at once
 export default function* rootSaga() {
     yield [
         watchFetchDepartments(),
-        watchFetchEmployees()
+        watchFetchEmployees(),
+        watchAddDepartment()
     ];
 }

@@ -1,10 +1,15 @@
 import { call, put } from "redux-saga/effects"
 
-import { fetchDepartmentsAsync } from "../../src/sagas";
+import {
+    fetchDepartmentsAsync,
+    fetchEmployeesAsync
+} from "../../src/sagas";
 
 import {
     FETCH_DEPARTMENTS_SUCCEEDED,
-    FETCH_DEPARTMENTS_FAILED
+    FETCH_DEPARTMENTS_FAILED,
+    FETCH_EMPLOYEES_SUCCEEDED,
+    FETCH_EMPLOYEES_FAILED
 } from "../../src/actions/types";
 
 const ROOT_URL = "http://159.203.117.100:3000";
@@ -57,5 +62,65 @@ describe("Saga Department", () => {
                 })
             );
         });
+    });
+});
+
+describe("Saga Employee", () => {
+    describe("fetchEmployeesAsync", () => {
+        // todo: Разобраться как тестировать подобного рода saga
+
+        /*it("fetch list of employees", () => {
+            const generator = fetchEmployeesAsync();
+
+            const mockData = [
+                {
+                    "id": 3,
+                    "firstName": "Барт",
+                    "lastName": "Кёрлиш",
+                    "departmentId": 1,
+                    "departmentName": "Test department"
+                }
+            ];
+
+            // Make call to api server
+            generator.next();
+            generator.next();
+            generator.next({
+                data: mockData
+            });
+
+            // Check if generator works correct
+            expect(
+                generator.next({
+                    data: mockData
+                }).value
+            ).toEqual(
+                put({
+                    type: FETCH_EMPLOYEES_SUCCEEDED,
+                    payload: mockData
+                })
+            );
+        });*/
+
+        /*it("fails on fetch list of departments", () => {
+            const generator = fetchDepartmentsAsync();
+
+            const error = new TypeError("Cannot read property 'data' of undefined");
+
+            // Mock the error while request
+            generator.next(function() {
+                throw error;
+            });
+
+            // Check if generator works correct
+            expect(
+                generator.next().value
+            ).toEqual(
+                put({
+                    type: FETCH_DEPARTMENTS_FAILED,
+                    payload: error
+                })
+            );
+        });*/
     });
 });

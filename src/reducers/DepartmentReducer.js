@@ -1,11 +1,8 @@
 import {
-    FETCH_DEPARTMENTS,
     FETCH_DEPARTMENTS_SUCCEEDED,
-    FETCH_DEPARTMENTS_FAILED
 } from "../actions/types";
 
 export const initialState = {
-    employeesList: [],
     departmentsList: []
 };
 

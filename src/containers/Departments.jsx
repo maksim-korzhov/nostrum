@@ -3,6 +3,8 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import { fetchDepartments } from "../actions";
+import ModalWrapper from "../hoc/ModalWrapper";
+import AddDepartment from "./AddDepartment";
 
 class Departments extends Component {
     componentWillMount() {
@@ -23,6 +25,8 @@ class Departments extends Component {
     }
 
     render() {
+        const ModalForm = ModalWrapper(AddDepartment);
+
         return (
             <main className="col-sm-9 offset-sm-3 col-md-10 offset-md-2 pt-3">
                 <h1>Departments</h1>
@@ -38,6 +42,8 @@ class Departments extends Component {
                             {this._renderDepartments()}
                         </tbody>
                     </table>
+
+                    <ModalForm />
                 </div>
             </main>
         );

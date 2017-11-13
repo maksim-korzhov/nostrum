@@ -13,7 +13,7 @@ describe("Department reducer", () => {
                 defaultPayload: "defaultValue"
             }
         } )).toEqual({
-            departments: {
+            departmentsList: {
                 defaultPayload: "defaultValue"
             }
         });

@@ -12,8 +12,6 @@ class Employees extends Component {
     _renderEmployees() {
         if(this.props.employees.length === 0) return false;
 
-        console.log(this.props.employees);
-
         return (
             this.props.employees.map( (employees) =>
                 <tr key={employees.id}>
