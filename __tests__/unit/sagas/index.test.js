@@ -3,16 +3,16 @@ import { call, put } from "redux-saga/effects"
 import {
     fetchDepartmentsAsync,
     fetchEmployeesAsync
-} from "../../src/sagas";
+} from "../../../src/sagas/index";
 
 import {
     FETCH_DEPARTMENTS_SUCCEEDED,
     FETCH_DEPARTMENTS_FAILED,
     FETCH_EMPLOYEES_SUCCEEDED,
     FETCH_EMPLOYEES_FAILED
-} from "../../src/actions/types";
+} from "../../../src/actions/types";
 
-const ROOT_URL = "http://159.203.117.100:3000";
+const ROOT_URL = `http://${window.location.hostname}:3000`;
 
 describe("Saga Department", () => {
     describe("fetchDepartmentsAsync", () => {

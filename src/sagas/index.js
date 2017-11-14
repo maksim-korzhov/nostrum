@@ -20,7 +20,7 @@ import {
     DELETE_DEPARTMENT_FAILED
 } from "../actions/types";
 
-const ROOT_URL = "http://159.203.117.100:3000";
+const ROOT_URL = `http://${window.location.hostname}:3000`;
 
 // get list of departments
 export function* fetchDepartmentsAsync() {

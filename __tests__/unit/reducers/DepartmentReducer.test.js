@@ -1,5 +1,5 @@
-import DepartmentReducer, { initialState } from "../../src/reducers/DepartmentReducer";
-import { FETCH_DEPARTMENTS_SUCCEEDED } from "../../src/actions/types";
+import DepartmentReducer, { initialState } from "../../../src/reducers/DepartmentReducer";
+import { FETCH_DEPARTMENTS_SUCCEEDED } from "../../../src/actions/types";
 
 describe("Department reducer", () => {
     it("has a default state", () => {

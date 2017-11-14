@@ -9,7 +9,8 @@
     "prod": "npm run clean && webpack -p",
     "clean": "rimraf ./dist/*",
     "test": "jest --coverage",
-    "test:watch": "jest --coverage --watch"
+    "test:watch": "jest --coverage --watch",
+    "test:acc": "nightmare"
   },
   "author": "",
   "license": "ISC",
