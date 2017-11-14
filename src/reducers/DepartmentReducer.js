@@ -3,7 +3,7 @@ import {
 } from "../actions/types";
 
 export const initialState = {
-    departmentsList: []
+    departmentsList: {}
 };
 
 export default function( state = initialState, action ) {

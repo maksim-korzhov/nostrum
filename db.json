@@ -31,6 +31,14 @@
     {
       "name": "Тестовый отдел 3",
       "id": 8
+    },
+    {
+      "name": "Тестовый отдел 4",
+      "id": 9
+    },
+    {
+      "name": "Тестовый отдел 5",
+      "id": 10
     }
   ],
   "employee": [
@@ -69,6 +77,12 @@
       "firstName": "Алан",
       "lastName": "Прист",
       "departmentId": 2
+    },
+    {
+      "departmentId": "4",
+      "firstName": "Уилл",
+      "lastName": "Омсфорд",
+      "id": 7
     }
   ]
 }

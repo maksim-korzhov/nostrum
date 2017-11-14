@@ -5,7 +5,7 @@ import { Field, reduxForm } from "redux-form";
 
 import { addDepartment } from "../actions/index";
 
-class Form extends Component {
+class AddDepartment extends Component {
     _renderField(field) {
         const {meta: {touched, error}} = field;
         //const className = `form-group ${touched && error ? "has-danger" : ""}`;
@@ -51,7 +51,7 @@ function mapDispatchToProps(dispatch) {
     return bindActionCreators({ addDepartment }, dispatch);
 }
 
-Form = connect(null, mapDispatchToProps)(Form);
+AddDepartment = connect(null, mapDispatchToProps)(AddDepartment);
 
 function validate(values) {
     const errors = {};
@@ -66,4 +66,4 @@ function validate(values) {
 export default reduxForm({
     validate,
     form: "add"
-})(Form);
+})(AddDepartment);

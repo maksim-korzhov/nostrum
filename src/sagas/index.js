@@ -10,7 +10,12 @@ import {
     FETCH_EMPLOYEES_FAILED,
     ADD_DEPARTMENT,
     ADD_DEPARTMENT_SUCCEEDED,
-    ADD_DEPARTMENT_FAILED
+    ADD_DEPARTMENT_FAILED,
+    ADD_EMPLOYEE,
+    ADD_EMPLOYEE_SUCCEEDED,
+    ADD_EMPLOYEE_FAILED,
+    DELETE_EMPLOYEE,
+    DELETE_EMPLOYEE_FAILED
 } from "../actions/types";
 
 const ROOT_URL = "http://159.203.117.100:3000";
@@ -91,8 +96,7 @@ function* watchFetchEmployees() {
 // add new department
 export function* addNewDepartmentAsync(action) {
     try {
-        const result = yield call( axios.post, `${ROOT_URL}/department`, action.payload);
-        //yield put({ type: ADD_DEPARTMENT_SUCCEEDED, payload: result.data });
+        yield call( axios.post, `${ROOT_URL}/department`, action.payload);
         yield* fetchDepartmentsAsync();
     } catch(error) {
         yield put({ type: ADD_DEPARTMENT_FAILED, payload: error });
@@ -104,11 +108,46 @@ function* watchAddDepartment() {
     yield takeEvery(ADD_DEPARTMENT, addNewDepartmentAsync);
 }
 
+
+// add new employee
+export function* addNewEmployeeAsync(action) {
+    try {
+        yield call( axios.post, `${ROOT_URL}/employee`, action.payload);
+        yield* fetchEmployeesAsync();
+    } catch(error) {
+        yield put({ type: ADD_EMPLOYEE_FAILED, payload: error });
+    }
+}
+
+// departments watcher
+function* watchAddEmployee() {
+    yield takeEvery(ADD_EMPLOYEE, addNewEmployeeAsync);
+}
+
+
+// add new employee
+export function* deleteEmployeeAsync(action) {
+    try {
+        yield call( axios.delete, `${ROOT_URL}/employee/${action.payload}` );
+        yield* fetchEmployeesAsync();
+    } catch(error) {
+        yield put({ type: DELETE_EMPLOYEE_FAILED, payload: error });
+    }
+}
+
+// departments watcher
+function* watchDeleteEmployee() {
+    yield takeEvery(DELETE_EMPLOYEE, deleteEmployeeAsync);
+}
+
+
 // single entry point to start all the sagas at once
 export default function* rootSaga() {
     yield [
         watchFetchDepartments(),
         watchFetchEmployees(),
-        watchAddDepartment()
+        watchAddDepartment(),
+        watchAddEmployee(),
+        watchDeleteEmployee()
     ];
 }
