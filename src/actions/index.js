@@ -3,7 +3,8 @@ import {
     ADD_EMPLOYEE,
     FETCH_DEPARTMENTS,
     FETCH_EMPLOYEES,
-    DELETE_EMPLOYEE
+    DELETE_EMPLOYEE,
+    DELETE_DEPARTMENT
 } from "./types";
 
 export function fetchEmployees() {
@@ -35,6 +36,13 @@ export function addEmployee(values) {
 export function deleteEmployee(id) {
     return {
         type: DELETE_EMPLOYEE,
+        payload: id
+    }
+}
+
+export function deleteDepartment(id) {
+    return {
+        type: DELETE_DEPARTMENT,
         payload: id
     }
 }

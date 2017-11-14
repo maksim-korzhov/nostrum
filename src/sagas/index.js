@@ -15,7 +15,9 @@ import {
     ADD_EMPLOYEE_SUCCEEDED,
     ADD_EMPLOYEE_FAILED,
     DELETE_EMPLOYEE,
-    DELETE_EMPLOYEE_FAILED
+    DELETE_EMPLOYEE_FAILED,
+    DELETE_DEPARTMENT,
+    DELETE_DEPARTMENT_FAILED
 } from "../actions/types";
 
 const ROOT_URL = "http://159.203.117.100:3000";
@@ -119,13 +121,13 @@ export function* addNewEmployeeAsync(action) {
     }
 }
 
-// departments watcher
+// add new employee watcher
 function* watchAddEmployee() {
     yield takeEvery(ADD_EMPLOYEE, addNewEmployeeAsync);
 }
 
 
-// add new employee
+// delete employee
 export function* deleteEmployeeAsync(action) {
     try {
         yield call( axios.delete, `${ROOT_URL}/employee/${action.payload}` );
@@ -135,9 +137,25 @@ export function* deleteEmployeeAsync(action) {
     }
 }
 
-// departments watcher
+// delete employee watcher
 function* watchDeleteEmployee() {
     yield takeEvery(DELETE_EMPLOYEE, deleteEmployeeAsync);
+}
+
+
+// delete department
+export function* deleteDepartmentAsync(action) {
+    try {
+        yield call( axios.delete, `${ROOT_URL}/department/${action.payload}` );
+        yield* fetchDepartmentsAsync();
+    } catch(error) {
+        yield put({ type: DELETE_DEPARTMENT_FAILED, payload: error });
+    }
+}
+
+// delete department watcher
+function* watchDeleteDepartment() {
+    yield takeEvery(DELETE_DEPARTMENT, deleteDepartmentAsync);
 }
 
 
@@ -148,6 +166,7 @@ export default function* rootSaga() {
         watchFetchEmployees(),
         watchAddDepartment(),
         watchAddEmployee(),
-        watchDeleteEmployee()
+        watchDeleteEmployee(),
+        watchDeleteDepartment()
     ];
 }

@@ -2,13 +2,17 @@ import React, {Component} from "react";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
-import { fetchDepartments } from "../actions";
+import { fetchDepartments, deleteDepartment } from "../actions";
 import ModalWrapper from "../hoc/ModalWrapper";
 import AddDepartment from "./AddDepartment";
 
 class Departments extends Component {
     componentWillMount() {
         this.props.fetchDepartments();
+    }
+
+    _onClickHandler(id) {
+        this.props.deleteDepartment(id);
     }
 
     _renderDepartments() {
@@ -19,6 +23,9 @@ class Departments extends Component {
                 <tr key={department.id}>
                     <td>{department.id}</td>
                     <td>{department.name}</td>
+                    <td>
+                        <button className="btn btn-danger" onClick={this._onClickHandler.bind(this, department.id)}>Delete</button>
+                    </td>
                 </tr>
             )
         );
@@ -36,6 +43,7 @@ class Departments extends Component {
                         <tr>
                             <th>#</th>
                             <th>Name</th>
+                            <th>&nbsp;</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -55,7 +63,7 @@ function mapStateToProps({departments: {departmentsList}}) {
 }
 
 function mapDispatchToProps(dispatch) {
-    return bindActionCreators({ fetchDepartments }, dispatch);
+    return bindActionCreators({ fetchDepartments, deleteDepartment}, dispatch);
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Departments);
